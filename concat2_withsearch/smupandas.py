@@ -3,7 +3,7 @@ from dateutil.parser import parse
 
 data1 = pd.read_csv("table1.csv",nrows=10) #header index is start from 0, so this means 2nd row
 data2 = pd.read_csv("table2.csv",nrows=10)#usecols = cols) #skiprows=4,index_col=None)#,skiprows=5)
-
+print("data1",list(data1.columns.values))
 ##identifying HEADER row
 wordsearch = 'TIMESTAMP'
 
@@ -34,9 +34,17 @@ def findSkiprows_2ndfile(dataframe):
         x += 1
     return array
 
-data1_header = pd.read_csv("table1.csv",header=findHeaderrow(data1)) #header index is start from 0, so this means 2nd row
+print("findHeaderrow(data1)",findHeaderrow(data1))
+print("findSkiprows_2ndfile(data2)",findSkiprows_2ndfile(data2))
+data1_header = pd.read_csv("table1.csv",header=[1],skiprows=[2,3])#findHeaderrow(data1)) #header index is start from 0, so this means 2nd row
 data2_skiprows = pd.read_csv("table2.csv",header=findHeaderrow(data2),skiprows=findSkiprows_2ndfile(data2))#usecols = cols) #skiprows=4,index_col=None)#,skiprows=5)
+data3 = pd.concat([data1_header,data2_skiprows],ignore_index=True, axis=0) # needs right header for concat to work
 
+##Rearrange to add in Logger details
+new_index = [-1] + list(data3.index)
+# Reindex the DataFrame
+data3 = data3.reindex(new_index)
+# Fill in the new row
+data3.loc[-1] = list(data1.columns.values) #["TOA5", "CR300Series_2", "CR350", "5107", "CR350-CELL220.Std.01.04", "CPU:BG Sensor.CRB",	"50250", "Table1"]
 
-data3 = pd.concat([data1_header,data2_skiprows],ignore_index=True, axis=0)
 data3.to_csv("concat.csv")
