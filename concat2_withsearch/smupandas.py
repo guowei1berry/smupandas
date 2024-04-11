@@ -10,6 +10,7 @@ wordsearch = 'TIMESTAMP'
 def findHeaderrow(dataframe):
     i = 0
     while i < 5:
+        print("dataframe.iat[i,0]",dataframe.iat[i,0])
         if (dataframe.iat[i,0]) == str(wordsearch):
             header_row = [i + 1] 
 
