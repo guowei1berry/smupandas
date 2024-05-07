@@ -1,6 +1,7 @@
 import os
 import re
 from datetime import datetime
+import shutil
 
 # Example usage
 # filename = "COOLCOATING_ENVDATA_PERDAY_2024-04-07_00-01-00.402.csv"
@@ -43,11 +44,17 @@ def extract_timestamp(i,filename):
         ##logging
         return initObject
 
+def moveCSVfromStaging2dailyset(file,dailypath,stagingMovepath):
+    shutil.copy(f'{folder_path}/{file}', dailypath)
+    shutil.copy(f'{folder_path}/{file}', stagingMovepath)
+    os.remove(f'{folder_path}/{file}')
+    
 
 ##Read folder
 # Specify the path to the folder
 folder_path = '/home/ubuntu2004/CODE/smu_data/daily_staging_env'
 dailysetfolder_path = '/home/ubuntu2004/CODE/smu_data/daily_compiled/dailyset'
+dailyMovedfolder_path ='/home/ubuntu2004/CODE/smu_data/daily_compiled/staging_moved'
 # Get a list of all files and directories in the folder
 folder_contents = os.listdir(folder_path)
 
@@ -63,13 +70,16 @@ for item in folder_contents:
     #2 compile to dailyset
     if (fileobj__.conditional == True):
         dailysetfolder_contents = os.listdir(dailysetfolder_path)
-        if fileobj__.name in dailysetfolder_contents: 
-            # print("exist") 
+        dailydate = fileobj__.name
+        if dailydate in dailysetfolder_contents: 
+            # print("folder exist") 
+            moveCSVfromStaging2dailyset(item,f'{dailysetfolder_path}/{dailydate}',f'{dailyMovedfolder_path}/{item}')
         else: 
-            # print("not exist")
+            # print("folder not exist")
             # Create the directory if not exist
-            path = os.path.join(dailysetfolder_path, f"{fileobj__.name}")             
-            os.mkdir(path) 
+            dailysetpath = os.path.join(dailysetfolder_path, f"{dailydate}")             
+            os.mkdir(dailysetpath)
+            moveCSVfromStaging2dailyset(item,f'{dailysetfolder_path}/{dailydate}',f'{dailyMovedfolder_path}/{item}')
             
         # print('dailysetfolder_contents',dailysetfolder_contents)
         #logging
