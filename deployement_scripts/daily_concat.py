@@ -67,13 +67,15 @@ def extract_timestamp(i,filename):
 #         # Write DataFrame to Excel sheet
 #         sheet_name = f"Sheet_{i}"
 #         df.to_excel(writer, sheet_name=sheet_name, index=False)
-with pd.ExcelWriter('output.xlsx') as writer:#with pd.ExcelWriter('output.xlsx', engine='xlsxwriter') as writer:
+#with pd.ExcelWriter('output.xlsx') as writer:#
+with pd.ExcelWriter('output.xlsx', engine='openpyxl') as writer: #engine='xlsxwriter') as writer: 
+    # df.to_excel('output.xlsx', engine='openpyxl', index=False)
     # Write each DataFrame to a separate worksheet #sheetname max 31 char
     for eachFile in dailysetfolder:
         sliced = eachFile[6:31]
         print('sliced',sliced)
         df = pd.read_csv(f'{dailysetfolder_path}/{eachFile}')
-        df.to_excel(writer, sheet_name=f"{sliced}", index=False)
-        worksheet = writer.sheets[f'{sliced}']
+        df.to_excel(writer, sheet_name=f"{sliced}", index=True)
+        # worksheet = writer.sheets[f'{sliced}']
         # column_len = df[column].astype(str).str.len().max()
-        worksheet.set_column(1, 20, max(10, 30))  # Adjust 10 as per your requirement
+        # worksheet.set_column(1, 20, max(10, 30))  # Adjust 10 as per your requirement
