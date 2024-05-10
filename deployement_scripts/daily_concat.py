@@ -51,7 +51,7 @@ for eachFile in sorted_dailyset:
 
     else:  
         
-        readPrevFile = pd.read_csv('concatedHoriz.csv',header=[1],index_col=0)#usecols = cols) #skiprows=4,index_col=None)#,skiprows=5)
+        readPrevFile = pd.read_csv('concatedHoriz.csv',index_col=0)#usecols = cols) #skiprows=4,index_col=None)#,skiprows=5)
         print('prevFile>>>',readPrevFile.head)
         readCurrentFile = pd.read_csv(f'{dailysetfolder_path}/{eachFile}',header=[1],index_col=0)#,header=[1],skiprows=[2,3])#findHeaderrow(data1)) #header index is start from 0, so this means 2nd row
         slicedCurrent = eachFile[0:9]
