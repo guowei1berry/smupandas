@@ -53,7 +53,7 @@ def moveCSVfromStaging2dailyset(file,dailypath,stagingMovepath):
 ##Read folder
 # Specify the path to the folder
 folder_path = '/home/ftpsensor_user/daily_staging'
-dailysetfolder_path = '/home/ftpsensor_user/daily_compiled/daily_compiled/dailyset'
+dailysetfolder_path = '/home/ftpsensor_user/daily_compiled/dailyset'
 dailyMovedfolder_path ='/home/ftpsensor_user/daily_compiled/staging_moved'
 # Get a list of all files and directories in the folder
 folder_contents = os.listdir(folder_path)
