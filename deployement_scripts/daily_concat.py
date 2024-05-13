@@ -5,14 +5,13 @@ import shutil
 import pandas as pd
 import xlsxwriter
 
+logging_path = '/home/ubuntu2004/CODE/smu_data/daily_compiled/aggregation/logging.txt'
 #Check which folder does not exist in daily_Aggregation folder
 dailyaggregation_path = f'/home/ubuntu2004/CODE/smu_data/daily_compiled/aggregation/daily_Aggregation'
 dailyaggregationSet = set(os.listdir(dailyaggregation_path))
 dailycompiledfolder_path = '/home/ubuntu2004/CODE/smu_data/daily_compiled/dailyset'
 sortedDailySet = set(os.listdir(dailycompiledfolder_path))
 missing_in_dailyAggregation = sorted(sortedDailySet.difference(dailyaggregationSet))
-# dateSet = '2024-04-17'
-
 
 def concatDailyStations(dateSet):
 
@@ -25,23 +24,25 @@ def concatDailyStations(dateSet):
     no_stations = len(sorted_dailyList)
 
     print(f'Doing {dateSet}')
-    with open("/home/ubuntu2004/CODE/smu_data/daily_compiled/aggregation/logging.txt", "a") as f:
+    with open(logging_path, "a") as f:
         print(f'Doing {dateSet} with {no_stations}stations', file=f)
     ##Concated path
     mergedpath = f'/home/ubuntu2004/CODE/smu_data/daily_compiled/aggregation/daily_Aggregation/{dateSet}/{dateSet}'
     mergedCSVpath = f'{mergedpath}.csv'
     mergedxlsxpath = f'{mergedpath}.xlsx'
     with open(f'{mergedpath}_{no_stations}stations.txt', "w") as f:   # Opens file and casts as f 
-        f.write(f'{no_stations}stations')       # Writing
+        f.write(f'{no_stations}stations')   
 
     #eliminate files with .~lock prefix
     for eachFile in sorted_dailyList:
         if eachFile[0:6]=='.~lock':
-            # print('locking',eachFile,f'{dailysetfolder_path}/{eachFile}')
             os.remove(f'{dailysetfolder_path}/{eachFile}')
 
     #Concat horizontally
     for eachFile in sorted_dailyList:
+        with open(logging_path, "a") as f:   # Opens file and casts as f 
+            f.write(f'{eachFile[6:9]};')
+
 
         if os.path.isfile(mergedCSVpath) ==False:
             readFirstFile = pd.read_csv(f'{dailysetfolder_path}/{eachFile}',header=[1],index_col=0)#,header=[1],skiprows=[2,3])#findHeaderrow(data1)) #header index is start from 0, so this means 2nd row
@@ -71,8 +72,7 @@ def concatDailyStations(dateSet):
             df = pd.read_csv(f'{dailysetfolder_path}/{eachFile}')
             df.to_excel(writer, sheet_name=f"{sliced}", index=True)
 
-
+###Cycle through dailyAggregation folder to run concat script
 for eachDate in missing_in_dailyAggregation:
-    print('eachDateloop',eachDate)
     os.mkdir(f'{dailyaggregation_path}/{eachDate}')
     concatDailyStations(eachDate)
