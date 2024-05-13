@@ -6,7 +6,7 @@ import pandas as pd
 # cols = ['TIMESTAMP','RECORD','BattV','PTemp_C','T108_C']
 cols = [0,2,3,4]
 
-data1 = pd.read_csv("table1.csv",header=[1])
+data1 = pd.read_csv("table1.csv",header=[1]) #header index is start from 0, so this means 2nd row
 data2 = pd.read_csv("table2.csv",header=[1],skiprows=[2,3])#usecols = cols) #skiprows=4,index_col=None)#,skiprows=5)
 
 
