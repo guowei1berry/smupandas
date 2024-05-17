@@ -1,9 +1,9 @@
 import os
 import re
-from datetime import datetime
 import shutil
 
 # Example usage
+logging_path = '/home/ftpsensor_user/backuplogging.txt'
 # filename = "COOLCOATING_ENVDATA_PERDAY_2024-04-07_00-01-00.402.csv"
 # sliced = filename[27:37]
 # print('sliced',sliced)
@@ -45,6 +45,8 @@ def extract_timestamp(i,filename):
         return initObject
 
 def moveCSVfromStaging2dailyset(file,dailypath,stagingMovepath):
+    with open(logging_path, "a") as f:
+        print(f'Copying {file} to {dailypath} & {stagingMovepath}', file=f)
     shutil.copy(f'{folder_path}/{file}', dailypath)
     shutil.copy(f'{folder_path}/{file}', stagingMovepath)
     os.remove(f'{folder_path}/{file}')

@@ -1,0 +1,6 @@
+Doing 2024-04-16 with 11stations
+A_1;A_2;A_3;A_4;B_1;B_2;B_3;B_4;D_2;D_3;D_4;Doing 2024-04-17 with 11stations
+A_1;A_2;A_3;A_4;B_1;B_2;B_3;B_4;D_2;D_3;D_4;Doing 2024-04-18 with 11stations
+A_1;A_2;A_3;A_4;B_1;B_2;B_3;B_4;D_2;D_3;D_4;Doing 2024-04-19 with 11stations
+A_1;A_2;A_3;A_4;B_1;B_2;B_3;B_4;D_2;D_3;D_4;Doing 2024-04-20 with 11stations
+A_1;A_2;A_3;A_4;B_1;B_2;B_3;B_4;D_2;D_3;D_4;
