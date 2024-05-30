@@ -10,13 +10,13 @@ logging_path = '/home/ftpsensor_user/daily_compiled/aggregation/logging.txt'
 now = datetime.datetime.now()
 current_date = now.date()
 
-def send_email(from_email, to_email, subject, body,attachment_paths=None, smtp_server='smtp.gmail.com', smtp_port=587, username='oneberrysmucoolschools@gmail.com', password='bqei yxbz odzb xuyg'):
+def send_email(from_email, to_email, subject, body,attachment_paths=None, smtp_server='smtp.gmail.com', smtp_port=587, username='oneberrysmucoolschools@gmail.com', password='YOURSECRETKEYHERE'):
 
 # Email account credentials
 # smtp_server = 'smtp.gmail.com'
 # smtp_port = 587
 # username = 'oneberrysmucoolschools@gmail.com'
-# password = 'bqei yxbz odzb xuyg'
+# password = 'YOURSECRETKEYHERE'
 
 # Email content
 # from_email = 'oneberrysmucoolschools@gmail.com'
